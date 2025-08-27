@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <unistd.h>
 
 volatile uint16_t memory[0x04000000];
 /*	memory
@@ -9,7 +10,8 @@ volatile uint16_t memory[0x04000000];
 		0x01800000-0x01FDFFFF - Audio RAM
 		0x01FE0000-0x01FEFFFF - High Stack
 		0x01FF0000-0x01FFFFFF - Low Stack
-		0x02000000-0x02FFFFFF - Cartridge Swap
+		0x02000000-0x0200000F - Cartridge Swap Bank
+		0x02000010-0x02FFFFFF - Cartridge Swap
 		0x03000000-0x03FFFFFF - Cartridge Static
 */
 volatile uint16_t registers[0x10];
@@ -54,6 +56,23 @@ int8_t power = 0;
 
 #include "instruction_names.c"
 
+void loadprogram(){
+	memory[0x03000000] = LOAD_REGISTER_IMMEDIATE;
+	memory[0x03000001] = 0x0004;
+	memory[0x03000002] = 0xFFFF;
+	memory[0x03000003] = 0x0000;
+	memory[0x03000004] = MOVE_REGISTER_TO_HEAD;
+	memory[0x03000005] = 0x0004;
+	memory[0x03000006] = 0x0000;
+	memory[0x03000007] = 0x0000;
+	memory[0x03000008] = JUMP_IF_NOT_EQUALS_ZERO;
+	memory[0x03000009] = 0x0300;
+	memory[0x0300000A] = 0x0008;
+	memory[0x0300000B] = 0x0000;
+	
+	memory[0x03FFFFFC] = HALT_AND_CATCH_FIRE;
+}
+
 void memory_setup(){
 	PROGRAM_COUNTER_HIGH = 0x300;
 	PROGRAM_COUNTER_LOW = 0x0;
@@ -61,15 +80,7 @@ void memory_setup(){
 	HEAD_LOW = 0x0;
 	ZERO = 0x0;
 	STACK_HEIGHT = 0x0;
-	/*memory[0x03000000] = MOVE_REGISTER_TO_HEAD;
-	memory[0x03000001] = 0x0007;
-	memory[0x03000002] = 0x0000;
-	memory[0x03000003] = 0x0000;
-	memory[0x03000004] = JUMP_IF_EQUALS_ZERO;
-	memory[0x03000005] = 0x0300;
-	memory[0x03000006] = 0x0004;
-	memory[0x03000007] = 0x0000;*/
-	memory[0x03FFFFFC] = HALT_AND_CATCH_FIRE;
+	loadprogram();
 }
 
 void powerup(){
@@ -88,7 +99,7 @@ uint16_t readmemory(uint16_t highword, uint16_t lowword, int32_t offset){
 	return (memory[reword(highword, lowword, offset)]);
 }
 void writememory(uint16_t highword, uint16_t lowword, int32_t offset, uint16_t value){
-	if (reword(highword, lowword, offset) >= 0x04000000){
+	if (reword(highword, lowword, offset) >= 0x03000000){
 		power = 2;
 		return;
 	}
@@ -126,11 +137,11 @@ void interpretinstruction(uint16_t highword, uint16_t lowword){
 	ARG1 = readmemory(highword, lowword, 1);
 	ARG2 = readmemory(highword, lowword, 2);
 	ARG3 = readmemory(highword, lowword, 3);
-	if (OPCODE >= 0x0C00){
+	if (OPCODE >= 0xC000){
 		#include "misc_instructions.c"
-	} else if (OPCODE >= 0x0800){
+	} else if (OPCODE >= 0x8000){
 		#include "register_instructions.c"
-	} else if (OPCODE >= 0x0400){
+	} else if (OPCODE >= 0x4000){
 		#include "alu_instructions.c"
 	} else {
 		#include "memory_instructions.c"
@@ -141,8 +152,15 @@ void interpretinstruction(uint16_t highword, uint16_t lowword){
 int main(){
 	powerup();
 	while (power == 1){
+		printf("pc 0x%X\r", reword(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW, 0));
 		interpretinstruction(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW);
-		printf("0x%X\r", reword(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW, 0));
+		/*printf("opcode 0x%X\n", OPCODE);
+		printf("0x%X\n", ARG1);
+		printf("0x%X\n", ARG2);
+		printf("0x%X\n", ARG3);
+		printf("accumulator 0x%X\n", ACCUMULATOR);
+		printf("head 0x%X\n", readmemory(HEAD_HIGH, HEAD_LOW, 0));
+		usleep(1000000);*/
 	}
 	#include "errors.c"
 	return power;

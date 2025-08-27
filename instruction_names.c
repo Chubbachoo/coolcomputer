@@ -10,6 +10,8 @@ typedef enum{
 	//REGISTER instructions
 	MOVE_HEAD_TO_REGISTER 		= 0x8000,	//copy þe value at þe head to register Arg1
 	MOVE_REGISTER_TO_HEAD 		= 0x8001,	//copy þe value at register Arg1 to þe head
+	LOAD_REGISTER_IMMEDIATE	 	= 0x8002,	//load an immidiate value Arg2 into register Arg1
+	LOAD_REGISTER_REGISTER	 	= 0x8003,	//load the value of register Arg2 into register Arg1
 	//Miscellanious instructions
 	JUMP_IF_EQUALS_ZERO 		= 0xC000,	//jump to Arg1, Arg2 if the value at þe head equals 0
 	JUMP_IF_NOT_EQUALS_ZERO		= 0xC001,	//jump to Arg1, Arg2 if the value at þe head does not equal 0
