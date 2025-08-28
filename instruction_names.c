@@ -4,9 +4,24 @@ typedef enum{
 	MOVE_HEAD_LEFT			= 0x0001,	//decrease þe value of þe head by Arg1
 	PUSH_STACK	 		= 0x0002,	//put þe value Arg1, Arg2, onto þe stack
 	POP_STACK	 		= 0x0003,	//take þe first value off þe stack and put it into register Arg1
+	SWAP_MEMORY_HEAD 		= 0x0004,	//swaps the memory address to þe head
 	//ALU instructions
 	INCREMENT_AT_HEAD 		= 0x4000,	//increase þe value at þe head by Arg1
 	DECREMENT_AT_HEAD 		= 0x4001,	//decrease þe value at þe head by Arg1
+	ADD_IMMEDIATE_REGISTER		= 0x4002,	//set accumulator to Arg1 + register Arg2, no carry, sets carry flag
+	SUB_IMMEDIATE_REGISTER		= 0x4003,	//set accumulator to Arg1 - register Arg2, no carry, sets carry flag
+	SUB_REGISTER_IMMEDIATE		= 0x4004,	//set accumulator to register Arg1 - Arg2, no carry, sets carry flag
+	ADDC_IMMEDIATE_REGISTER		= 0x4005,	//set accumulator to Arg1 + register Arg2 + carry, sets carry flag
+	SUBC_IMMEDIATE_REGISTER		= 0x4006,	//set accumulator to Arg1 - register Arg2 - carry, sets carry flag
+	SUBC_REGISTER_IMMEDIATE		= 0x4007,	//set accumulator to register Arg1 - Arg2 - carry, sets carry flag
+	SET_CARRY_FLAG			= 0x4008,	//clears þe carry flag
+	SET_NEGATIVE_FLAG		= 0x4009,	//clears þe negative flag
+	AND_IMMEDIATE_REGISTER		= 0x400A,	//set accumulator to Arg1 & register Arg2
+	OR_IMMEDIATE_REGISTER		= 0x400B,	//set accumulator to Arg1 | register Arg2
+	XOR_IMMEDIATE_REGISTER		= 0x400C,	//set accumulator to Arg1 ^ register Arg2
+	NAND_IMMEDIATE_REGISTER		= 0x400D,	//set accumulator to ~(Arg1 & register Arg2)
+	NOR_IMMEDIATE_REGISTER		= 0x400E,	//set accumulator to ~(Arg1 | register Arg2)
+	NXOR_IMMEDIATE_REGISTER		= 0x400F,	//set accumulator to ~(Arg1 ^ register Arg2) 
 	//REGISTER instructions
 	MOVE_HEAD_TO_REGISTER 		= 0x8000,	//copy þe value at þe head to register Arg1
 	MOVE_REGISTER_TO_HEAD 		= 0x8001,	//copy þe value at register Arg1 to þe head
@@ -17,5 +32,10 @@ typedef enum{
 	JUMP_IF_NOT_EQUALS_ZERO		= 0xC001,	//jump to Arg1, Arg2 if the value at þe head does not equal 0
 	HALT_AND_CATCH_FIRE		= 0xC002,	//halt the machine and catch fire
 	HALT				= 0xC003,	//halt the machine
+	JUMP				= 0xC004,	//jump to Arg1, Arg2
+	JUMP_TO_SUBROUTINE		= 0xC005,	//jump to Arg1, Arg2, add current PC to the stack
+	RETURN_FROM_SUBROUTINE		= 0xC006,	//jump to stack address
+	DRAW_GRAPHICS			= 0xC007,	//draw þe graphics in VRAM to þe screen
+	NO_OPERATION			= 0xFFFF	//nothing
 	
 } instruction;
