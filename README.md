@@ -3,11 +3,11 @@
 
 # Dependencies
 **Both**\
-&emsp;`make`\
+&emsp;`make`:\
 &emsp;https://www.gnu.org/software/make/
 
 **Emulator**\
-&emsp;Simple DirectMedia Layer 3\
+&emsp;Simple DirectMedia Layer 3:\
 &emsp;https://github.com/libsdl-org/SDL/releases/tag/release-3.2.20
 
 **Dev Kit**\
