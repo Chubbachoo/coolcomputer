@@ -19,6 +19,11 @@ switch (OPCODE){
 		writetoregister(ARG2, readmemory(0x01FF, STACK_HEIGHT, 0));
 		increaseprogramcounter(4);
 		break;
+	case SWAP_MEMORY_HEAD:
+		writetoregister(ARG3, readmemory(HEAD_HIGH, HEAD_LOW, 0));
+		writememory(HEAD_HIGH, HEAD_LOW, 0, readmemory(ARG1, ARG2, 0));
+		increaseprogramcounter(4);
+		break;
 	default:
 		increaseprogramcounter(4);
 		break;

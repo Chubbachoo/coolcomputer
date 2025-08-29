@@ -70,6 +70,7 @@ switch (OPCODE){
 	case XOR_IMMEDIATE_REGISTER:
 		ACCUMULATOR = ARG1 ^ readfromregister(ARG2);
 		increaseprogramcounter(4);
+		printf("AAAAAAAAAAAA\n");
 		break;
 	case NAND_IMMEDIATE_REGISTER:
 		ACCUMULATOR = ~(ARG1 & readfromregister(ARG2));

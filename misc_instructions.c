@@ -38,6 +38,27 @@ switch (OPCODE){
 		PROGRAM_COUNTER_LOW = readmemory(0x01FF, STACK_HEIGHT, 0);
 		increaseprogramcounter(4);
 		break;
+	case DRAW_GRAPHICS:
+		FLAGS |= 0x8000;
+		memory[0x01000000] = ARG1;
+		increaseprogramcounter(4);
+		break;
+	case WAIT:
+		usleep(ARG1);
+		increaseprogramcounter(4);
+		break;
+	case WAIT_COARSE:
+		usleep((uint32_t)(ARG1) * 1000);
+		increaseprogramcounter(4);
+		break;
+	case WAIT_REGISTER:
+		usleep(readfromregister(ARG1));
+		increaseprogramcounter(4);
+		break;
+	case WAIT_REGISTER_COARSE:
+		usleep((uint32_t)(readfromregister(ARG1)) * 1000);
+		increaseprogramcounter(4);
+		break;
 	default:
 		increaseprogramcounter(4);
 		break;

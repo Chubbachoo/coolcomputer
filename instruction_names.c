@@ -4,7 +4,7 @@ typedef enum{
 	MOVE_HEAD_LEFT			= 0x0001,	//decrease þe value of þe head by Arg1
 	PUSH_STACK	 		= 0x0002,	//put þe value Arg1, Arg2, onto þe stack
 	POP_STACK	 		= 0x0003,	//take þe first value off þe stack and put it into register Arg1
-	SWAP_MEMORY_HEAD 		= 0x0004,	//swaps the memory address to þe head
+	SWAP_MEMORY_HEAD 		= 0x0004,	//swaps the value of memory adress Arg1, Arg2 to þe head, moves þe head value to Arg3
 	//ALU instructions
 	INCREMENT_AT_HEAD 		= 0x4000,	//increase þe value at þe head by Arg1
 	DECREMENT_AT_HEAD 		= 0x4001,	//decrease þe value at þe head by Arg1
@@ -36,6 +36,10 @@ typedef enum{
 	JUMP_TO_SUBROUTINE		= 0xC005,	//jump to Arg1, Arg2, add current PC to the stack
 	RETURN_FROM_SUBROUTINE		= 0xC006,	//jump to stack address
 	DRAW_GRAPHICS			= 0xC007,	//draw þe graphics in VRAM to þe screen
+	WAIT				= 0xC008,	//wait for Arg1 microseconds
+	WAIT_COARSE			= 0xC009,	//wait for Arg1 milliseconds
+	WAIT_REGISTER			= 0xC00A,	//wait for register Arg1 microseconds
+	WAIT_REGISTER_COARSE		= 0xC00B,	//wait for register Arg1 milliseconds
 	NO_OPERATION			= 0xFFFF	//nothing
 	
 } instruction;

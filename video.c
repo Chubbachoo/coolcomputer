@@ -7,8 +7,8 @@
 	
 	window = SDL_CreateWindow(
 		"Cool Ass Emulator",
-		512,
 		256,
+		255,
 		SDL_WINDOW_OPENGL
 	);
 	

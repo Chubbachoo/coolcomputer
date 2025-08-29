@@ -53,7 +53,7 @@ volatile uint16_t registers[0x10];
 		800s - 
 		1000s - 
 		2000s - 
-		4000s - Accept input
+		4000s - 
 		8000s - Draw Screen
 */
 
@@ -78,6 +78,7 @@ int8_t power = 0;
 
 #define CARRY (registers[0x9] & 1)
 #define NEGATIVE ((registers[0x9] & 2) << 1)
+#define DRAW_SCREEN ((registers[0x9] & 0x8000) << 15)
 
 #define KEYCODE_UP 0x0001
 #define KEYCODE_RIGHT 0x0002
@@ -99,12 +100,9 @@ int8_t power = 0;
 #include "instruction_names.c"
 
 void loadprogram(){
-	memory[0x03000000] = JUMP;
-	memory[0x03000001] = 0x0300;
-	memory[0x03000002] = 0x0000;
-	memory[0x03000003] = 0x0000;
 	
 	memory[0x03FFFFFC] = HALT_AND_CATCH_FIRE;
+	#include "file_loading.c"
 }
 
 void memory_setup(){
@@ -188,7 +186,7 @@ int main(){
 		}
 	}
 	while (power == 1){
-		printf("pc 0x%X\r", INPUT_1);
+		//printf("pc 0x%X\r", reword(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW, 0));
 		interpretinstruction(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW);
 		/*printf("opcode 0x%X\n", OPCODE);
 		printf("0x%X\n", ARG1);
@@ -267,6 +265,7 @@ int main(){
 					break;
 			}
 		}
+		#include "PPU.c"
 	}
 	#include "errors.c"
 	return power;

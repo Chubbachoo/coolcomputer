@@ -14,9 +14,6 @@ switch (power) {
 	case 3:
 		printf("Program crashed. Reason: Write to invalid register.\n");
 		break;
-	case 8:
-		printf("Program crashed. Reason: Who uses a system less þan 16 bits any time after 19900?\n");
-		break;
 	default:
 		printf("Program crashed. Reason: Unknown reason, error code 0x%X.\n", power);
 		break;
