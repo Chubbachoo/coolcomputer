@@ -18,7 +18,7 @@
 	0x010D0000 - 0x010DFFFF		sprite bank 5
 	0x010E0000 - 0x010EFFFF		sprite bank 6
 	0x010F0000 - 0x010FFFFF		sprite bank 7
-	0x01100000 - 0x01FFFFFF		image data
+	0x01100000 - 0x017FFFFF		image data
 */
 /*
 	graphics mode 00
@@ -31,28 +31,31 @@
 if(DRAW_SCREEN) {
 	switch(memory[0x01000000]) {
 		case 0x0000:
-			for(uint8_t i_y = 0; i_y !=255 ; i_y++){
-				for(uint8_t ii_x = 0; ii_x <=254; ii_x++){
-					SDL_SetRenderDrawColor(renderer, (uint8_t)((memory[0x01100000 + (i_y*256) + ii_x]) >> 8), (uint8_t)(memory[0x01100000 + (i_y*256) + ii_x]), 0x00, 0xFF);
-					SDL_RenderPoint(renderer, i_y, ii_x);
+			for(uint8_t i_y = 0; i_y !=0xE0 ; i_y++){
+				for(uint8_t ii_x = 0; ii_x !=0x80; ii_x++){
+					SDL_SetRenderDrawColor(renderer, (uint8_t)((memory[0x01100000 + (i_y*128) + ii_x]) >> 8), (uint8_t)(memory[0x01100000 + (i_y*128) + ii_x]), 0x00, 0xFF);
+					SDL_RenderPoint(renderer, (ii_x * 2), i_y);
+					SDL_RenderPoint(renderer, (ii_x * 2) + 1, i_y);
 				}
 			}
 			SDL_RenderPresent(renderer);
 			break;
 		case 0x0001:
-			for(uint8_t i_y = 0; i_y !=255 ; i_y++){
-				for(uint8_t ii_x = 0; ii_x <=254; ii_x++){
-					SDL_SetRenderDrawColor(renderer, (uint8_t)((memory[0x01100000 + (i_y*256) + ii_x]) >> 8), 0x00, (uint8_t)(memory[0x01100000 + (i_y*256) + ii_x]), 0xFF);
-					SDL_RenderPoint(renderer, i_y, ii_x);
+			for(uint8_t i_y = 0; i_y !=0xE0 ; i_y++){
+				for(uint8_t ii_x = 0; ii_x !=0x80; ii_x++){
+					SDL_SetRenderDrawColor(renderer, (uint8_t)((memory[0x01100000 + (i_y*128) + ii_x]) >> 8), 0x00, (uint8_t)(memory[0x01100000 + (i_y*128) + ii_x]), 0xFF);
+					SDL_RenderPoint(renderer, (ii_x * 2), i_y);
+					SDL_RenderPoint(renderer, (ii_x * 2) + 1, i_y);
 				}
 			}
 			SDL_RenderPresent(renderer);
 			break;
 		case 0x0002:
-			for(uint8_t i_y = 0; i_y !=255 ; i_y++){
-				for(uint8_t ii_x = 0; ii_x <=254; ii_x++){
-					SDL_SetRenderDrawColor(renderer, 0x00, (uint8_t)((memory[0x01100000 + (i_y*256) + ii_x]) >> 8), (uint8_t)(memory[0x01100000 + (i_y*256) + ii_x]), 0xFF);
-					SDL_RenderPoint(renderer, i_y, ii_x);
+			for(uint8_t i_y = 0; i_y !=0xE0 ; i_y++){
+				for(uint8_t ii_x = 0; ii_x !=0x80; ii_x++){
+					SDL_SetRenderDrawColor(renderer, 0x00, (uint8_t)((memory[0x01100000 + (i_y*128) + ii_x]) >> 8), (uint8_t)(memory[0x01100000 + (i_y*128) + ii_x]), 0xFF);
+					SDL_RenderPoint(renderer, (ii_x * 2), i_y);
+					SDL_RenderPoint(renderer, (ii_x * 2) + 1, i_y);
 				}
 			}
 			SDL_RenderPresent(renderer);

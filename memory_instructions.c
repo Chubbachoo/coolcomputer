@@ -24,6 +24,11 @@ switch (OPCODE){
 		writememory(HEAD_HIGH, HEAD_LOW, 0, readmemory(ARG1, ARG2, 0));
 		increaseprogramcounter(4);
 		break;
+	case PLACE_HEAD:
+		writetoregister(0x02, ARG1);
+		writetoregister(0x03, ARG2);
+		increaseprogramcounter(4);
+		break;
 	default:
 		increaseprogramcounter(4);
 		break;

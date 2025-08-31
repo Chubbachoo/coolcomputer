@@ -5,6 +5,7 @@ typedef enum{
 	PUSH_STACK	 		= 0x0002,	//put þe value Arg1, Arg2, onto þe stack
 	POP_STACK	 		= 0x0003,	//take þe first value off þe stack and put it into register Arg1
 	SWAP_MEMORY_HEAD 		= 0x0004,	//swaps the value of memory adress Arg1, Arg2 to þe head, moves þe head value to Arg3
+	PLACE_HEAD	 		= 0x0005,	//moves þe head to Arg1, Arg2
 	//ALU instructions
 	INCREMENT_AT_HEAD 		= 0x4000,	//increase þe value at þe head by Arg1
 	DECREMENT_AT_HEAD 		= 0x4001,	//decrease þe value at þe head by Arg1
@@ -22,6 +23,22 @@ typedef enum{
 	NAND_IMMEDIATE_REGISTER		= 0x400D,	//set accumulator to ~(Arg1 & register Arg2)
 	NOR_IMMEDIATE_REGISTER		= 0x400E,	//set accumulator to ~(Arg1 | register Arg2)
 	NXOR_IMMEDIATE_REGISTER		= 0x400F,	//set accumulator to ~(Arg1 ^ register Arg2) 
+	NOT_REGISTER			= 0x4010,	//set accumulator to ~register Arg1
+	
+	ADD_REGISTER_REGISTER		= 0x4012,	//set accumulator to register Arg1 + register Arg2, no carry, sets carry flag
+	SUB_REGISTER_REGISTER		= 0x4013,	//set accumulator to register Arg1 - register Arg2, no carry, sets carry flag
+	
+	ADDC_REGISTER_REGISTER		= 0x4015,	//set accumulator to register Arg1 + register Arg2 + carry, sets carry flag
+	SUBC_REGISTER_REGISTER		= 0x4016,	//set accumulator to register Arg1 - register Arg2 - carry, sets carry flag
+	
+	
+	
+	AND_REGISTER_REGISTER		= 0x401A,	//set accumulator to register Arg1 & register Arg2
+	OR_REGISTER_REGISTER		= 0x401B,	//set accumulator to register Arg1 | register Arg2
+	XOR_REGISTER_REGISTER		= 0x401C,	//set accumulator to register Arg1 ^ register Arg2
+	NAND_REGISTER_REGISTER		= 0x401D,	//set accumulator to ~(register Arg1 & register Arg2)
+	NOR_REGISTER_REGISTER		= 0x401E,	//set accumulator to ~(register Arg1 | register Arg2)
+	NXOR_REGISTER_REGISTER		= 0x401F,	//set accumulator to ~(register Arg1 ^ register Arg2) 
 	//REGISTER instructions
 	MOVE_HEAD_TO_REGISTER 		= 0x8000,	//copy þe value at þe head to register Arg1
 	MOVE_REGISTER_TO_HEAD 		= 0x8001,	//copy þe value at register Arg1 to þe head

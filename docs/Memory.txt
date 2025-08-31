@@ -1,0 +1,28 @@
+Þe Unnamed Computer has 64MiB of accessable address space, laid out like so:
+	memory
+		0x00000000-0x0000FFFF - 0-page
+		0x00000000-0x00FFFFFF - Working RAM
+		0x01000000-0x017FFFFF - Video RAM
+		0x01800000-0x01FDFFFF - Audio RAM
+		0x01FE0000-0x01FEFFFF - High Stack
+		0x01FF0000-0x01FFFFFF - Low Stack
+		0x02000000-0x020000FF - Cartridge Swap Bank
+		0x02000100-0x02FFFFFF - Cartridge Swap
+		0x03000000-0x03FFFFFF - Cartridge Static
+
+WORKING RAM:
+	ÞE 0-PAGE:
+		0-Page addresses typically are easier to access in more complex instrcution, needing only 1 Argument to specify þe memory address.
+		Þere is no distinction between 0-Page and normal memory oþerwise.
+	Working Ram stores variables, arrays, and oþer þings þat need to be remembered. Unlike oþer parts of parts of Address Space, it has no uses elsewhere, and can be altered wiþout changing system functions like video or audio.
+VIDEO RAM:
+	Quite complex, see VRAM.txt
+AUDIO RAM:
+	TODO
+ÞE STACK:
+	Þe Stack exists solely for stack based operations, such as subroutines, and has a register associated to it. All memory past þe stack height is considered uninitialised.
+CARTRIDGE SPACE:
+	CARTRIDGE SWAP:
+		Cartridges have 2 parts, a Static part and a Swap part. þe swap part of þe cartridge acts like typical ram, but changing þe value at address "Swaps" þat part of þe cartridge for a different bank.
+	CARTRIDGE STATIC:
+		Þe swap part of þe cartridge is Read only, and can't be swapped out. Þe Program Counter starts at 0x03000000, at þe very start of Static space

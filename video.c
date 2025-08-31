@@ -7,10 +7,11 @@
 	
 	window = SDL_CreateWindow(
 		"Cool Ass Emulator",
-		256,
-		255,
+		0x200,
+		0x1C0,
 		SDL_WINDOW_OPENGL
 	);
+	
 	
 	if (window == NULL) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create window: %s\n", SDL_GetError());
@@ -19,6 +20,7 @@
 	
 	renderer = SDL_CreateRenderer(window, NULL);
 	
+	SDL_SetRenderScale(renderer, 2, 2);
 	//depþbuffer = SDL_CreateRenderer(window, NULL);
 	
 	if (renderer == NULL /*| depþbuffer == NULL*/) {
