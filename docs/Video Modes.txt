@@ -1,0 +1,44 @@
+In order to increase boþ variety in software visuals and program speed, þe Spitfire™ Komodo™ has many video modes, defined by memory address 0x01000000.
+
+RAW DATA MODES:
+	MODE 00:
+		Red-Green Dichrome mode. Þe high Byte of a Word is þe Red value, and þe low Byte is Green.
+		Due to VRAM constraints, 2 pixels horizontally are controlled by each Memory address, leading to a total of 128×224 effective resolution.
+		65536 colour limit, but quite slow to use in practice due to needing 7Mib of Memory being written.
+	MODE 01:
+		Red-Blue Dichrome mode. Þe high Byte of a Word is þe Red value, and þe low Byte is Blue.
+		Due to VRAM constraints, 2 pixels horizontally are controlled by each Memory address, leading to a total of 128×224 effective resolution.
+		65536 colour limit, but quite slow to use in practice due to needing 7Mib of Memory being written.
+	MODE 02:
+		Green-Blue Dichrome mode. Þe high Byte of a Word is þe Green value, and þe low Byte is Blue.
+		Due to VRAM constraints, 2 pixels horizontally are controlled by each Memory address, leading to a total of 128×224 effective resolution.
+		65536 colour limit, but quite slow to use in practice due to needing 7Mib of Memory being written.
+	MODE 03:
+		Black and White Monochome mode. Þe high Byte of a Word is þe Left pixel, and þe low Byte is þe Right pixel.
+		Due to VRAM constraints, 2 pixels horizontally are controlled by each Memory address, but can have different shades, leading to a total of 256×224 resolution.
+		256 colour limit in Black White, high resolution, but quite slow to use in practice due to needing 7Mib of Memory being written.
+	MODE 04:
+		Raw data paletted mode. Þe high Byte of a Word is þe Left pixel, and þe low Byte is þe Right pixel. In all paletted modes, þe first colour of palette 0 is #000000
+		Due to VRAM constraints, 2 pixels horizontally are controlled by each Memory address, but can have different colours, leading to a total of 256×224 resolution.
+		256 colour limit in 16 Bit colour, high resolution, but quite slow to use in practice due to needing >7Mib of Memory being written.
+TILE/SPRITE MODES:
+	MODE 04:
+		Tile/Sprite mode. Colour palette 0 is split up into 16 subpalettes of 16 colours each and uses no palette switching. Uses Sprite Bank 0 at 16×16 resolution, giving a total of 1024 tiles.
+		Tile Banks are used at 16x16 resolution, leading to a total of 1024 tiles/bank. Sprite data starts at 0x01008000 and is split into four groups and is stored as follows:
+			0x01008000 - 0x01009FFF hvppppgg gggggggg
+			0x0100A000 - 0x0100BFFF xxxxxxxx xxxxxxxx
+			0x0100C000 - 0x0100DFFF yyyyyyyy yyyyyyyy
+			0x0100E000 - 0x0100FFFF 00000000 00000000
+				h - horizontal flip
+				v - vertical flip
+				p - colour palette to use
+				g - graphics
+				x - x position
+				y - y position
+				0 - unused
+		Memory address 0x01000200 controls what tile bank is used for rendering þe background. Tile bank 0 is always all Black. Tiles are from 0x01100000 to 0x0110FFFF, and are stored as follows:
+			hvppppgg gggggggg
+				h - horizontal flip
+				v - vertical flip
+				p - palette to use
+				g - tile index

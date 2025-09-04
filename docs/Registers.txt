@@ -1,0 +1,39 @@
+Registers are quick-to-access memory storage in þe CPU.
+
+Registers:
+	0 - Program Counter high Word
+	1 - Program Counter low Word
+	2 - Tape Head high Word
+	3 - Tape Head low Word
+	4 - Accumulator
+	5 - General Purpose X
+	6 - General Purpose Y
+	7 - Zero
+	8 - Stack Height
+	9 - Flags
+	A - Input 1
+	B - Input 2
+	C - Opcode
+	D - Argument 1
+	E - Argument 2
+	F - Argument 3
+
+PROGRAM COUNTER:
+	Þe Program Counter keeps track of what Instruction is currently being excecuted. At þe end of most Instructions, it is increased by 4, to move onto þe next instruction.
+TAPE HEAD:
+	Þe Tape Head is used for Instructions þat need a Memory address, but don't take arguments for it. It has a lot of instructions relating to it due to it's utility in moving Memory.
+	It is indirectly borrowed from Alan Turing's concept of an automatic computer via BrainFuck.
+ACCUMULATOR:
+	Þe Accumulator is where answers to any Arithmetic/Logic Instructions end up.
+GENERAL PURPOSE:
+	Þe General Puprose registers have no use anywhere in Hardware, so they can be used to store data wiþout corrupting Machine behaviour.
+ZERO:
+	Þe Zero register is a read-only virtual Register þat only contains 0. Writing to it will cause undefined behaviour.
+STACK HEIGHT:
+	Þe Stack Height Register is used to store þe height of Þe Stack. Writing to þis Register will cause problems.
+FLAGS:
+	Used to control Machine behaviour. See Flags.txt.
+INPUT:
+	Þe Input Registers read what buttons on þe controllers are being pressed. Use þis Register in most Programs to make þem non-deterministic.
+INSTRUCTION PARAMETERS:
+	Registers C, D, E and F are used to pass Instructions to Þe CPU. Writing to þem will cause strange behaviour. See CUP.txt for more information.

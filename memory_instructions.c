@@ -29,6 +29,23 @@ switch (OPCODE){
 		writetoregister(0x03, ARG2);
 		increaseprogramcounter(4);
 		break;
+	case PLACE_HEAD_REGISTER:
+		writetoregister(0x02, readfromregister(ARG1));
+		writetoregister(0x03, readfromregister(ARG2));
+		increaseprogramcounter(4);
+		break;
+	case SET_MEMORY_IMMEDIATE:
+		writememory(ARG1, ARG2, 0, ARG3);
+		increaseprogramcounter(4);
+		break;
+	case SET_MEMORY_ZEROPAGE:
+		writememory(ARG1, ARG2, 0, readmemory(0x0000, ARG3, 0));
+		increaseprogramcounter(4);
+		break;
+	case SET_ZEROPAGE_MEMORY:
+		writememory(0x0000, ARG1, 0, readmemory(ARG2, ARG3, 0));
+		increaseprogramcounter(4);
+		break;
 	default:
 		increaseprogramcounter(4);
 		break;

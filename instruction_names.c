@@ -6,6 +6,10 @@ typedef enum{
 	POP_STACK	 		= 0x0003,	//take þe first value off þe stack and put it into register Arg1
 	SWAP_MEMORY_HEAD 		= 0x0004,	//swaps the value of memory adress Arg1, Arg2 to þe head, moves þe head value to Arg3
 	PLACE_HEAD	 		= 0x0005,	//moves þe head to Arg1, Arg2
+	PLACE_HEAD_REGISTER 		= 0x0006,	//moves þe head to register Arg1, register Arg2
+	SET_MEMORY_IMMEDIATE		= 0x0007,	//sets memory value Arg1, Arg2 to Arg3
+	SET_MEMORY_ZEROPAGE		= 0x0008,	//sets memory value Arg1, Arg2 to Zero Page address Arg3
+	SET_ZEROPAGE_MEMORY		= 0x0009,	//sets Zero Page address Arg1 to memory value Arg2, Arg3
 	//ALU instructions
 	INCREMENT_AT_HEAD 		= 0x4000,	//increase þe value at þe head by Arg1
 	DECREMENT_AT_HEAD 		= 0x4001,	//decrease þe value at þe head by Arg1
@@ -31,8 +35,8 @@ typedef enum{
 	ADDC_REGISTER_REGISTER		= 0x4015,	//set accumulator to register Arg1 + register Arg2 + carry, sets carry flag
 	SUBC_REGISTER_REGISTER		= 0x4016,	//set accumulator to register Arg1 - register Arg2 - carry, sets carry flag
 	
-	
-	
+	MULTIPLY_REGISTER_IMMEDIATE	= 0x4018,	//set accumulator to register Arg1 * Arg2
+	MULTIPLY_REGISTER_REGISTER	= 0x4019,	//set accumulator to register Arg1 * register Arg2
 	AND_REGISTER_REGISTER		= 0x401A,	//set accumulator to register Arg1 & register Arg2
 	OR_REGISTER_REGISTER		= 0x401B,	//set accumulator to register Arg1 | register Arg2
 	XOR_REGISTER_REGISTER		= 0x401C,	//set accumulator to register Arg1 ^ register Arg2
@@ -52,7 +56,7 @@ typedef enum{
 	JUMP				= 0xC004,	//jump to Arg1, Arg2
 	JUMP_TO_SUBROUTINE		= 0xC005,	//jump to Arg1, Arg2, add current PC to the stack
 	RETURN_FROM_SUBROUTINE		= 0xC006,	//jump to stack address
-	DRAW_GRAPHICS			= 0xC007,	//draw þe graphics in VRAM to þe screen
+	DRAW_GRAPHICS			= 0xC007,	//draw þe graphics in VRAM to þe screen wiþ mode Arg1
 	WAIT				= 0xC008,	//wait for Arg1 microseconds
 	WAIT_COARSE			= 0xC009,	//wait for Arg1 milliseconds
 	WAIT_REGISTER			= 0xC00A,	//wait for register Arg1 microseconds

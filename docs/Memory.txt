@@ -1,5 +1,5 @@
-Þe Unnamed Computer has 64MiB of accessable address space, laid out like so:
-	memory
+Þe Spitfire™ Komodo™ has 64MiB of accessable address space, laid out like so:
+	Memory
 		0x00000000-0x0000FFFF - 0-page
 		0x00000000-0x00FFFFFF - Working RAM
 		0x01000000-0x017FFFFF - Video RAM
@@ -12,17 +12,18 @@
 
 WORKING RAM:
 	ÞE 0-PAGE:
-		0-Page addresses typically are easier to access in more complex instrcution, needing only 1 Argument to specify þe memory address.
-		Þere is no distinction between 0-Page and normal memory oþerwise.
+		0-Page addresses typically are easier to access in more complex Instruction, needing only 1 Argument to specify þe Memory address.
+		Þere is no distinction between 0-Page and normal Memory oþerwise.
 	Working Ram stores variables, arrays, and oþer þings þat need to be remembered. Unlike oþer parts of parts of Address Space, it has no uses elsewhere, and can be altered wiþout changing system functions like video or audio.
 VIDEO RAM:
 	Quite complex, see VRAM.txt
 AUDIO RAM:
 	TODO
 ÞE STACK:
-	Þe Stack exists solely for stack based operations, such as subroutines, and has a register associated to it. All memory past þe stack height is considered uninitialised.
+	Þe Stack exists solely for stack based Insctructions, such as Subroutines, and has a Register associated to it. All Memory in Þe Stack, but past þe Stack height is considered uninitialised.
 CARTRIDGE SPACE:
 	CARTRIDGE SWAP:
-		Cartridges have 2 parts, a Static part and a Swap part. þe swap part of þe cartridge acts like typical ram, but changing þe value at address "Swaps" þat part of þe cartridge for a different bank.
+		Cartridges have 2 parts, a Static part and a Swap part. Þe Swap part of þe Cartridge acts like typical ram, but changing þe value at address 0x02000000 "Swaps" þat part of þe cartridge for a different bank.
 	CARTRIDGE STATIC:
-		Þe swap part of þe cartridge is Read only, and can't be swapped out. Þe Program Counter starts at 0x03000000, at þe very start of Static space
+		Þe Static part of þe Cartridge is Read only, and can't be swapped out. Þe Program Counter starts at 0x03000000, at þe very start of Static space. Þis is where Programs þat always need to be used are stored.
+	

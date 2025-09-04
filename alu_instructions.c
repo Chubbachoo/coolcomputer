@@ -129,11 +129,14 @@ switch (OPCODE){
 	
 	
 	
-	
-	
-	
-	
-	
+	case MULTIPLY_REGISTER_IMMEDIATE:
+		ACCUMULATOR = (readfromregister(ARG1) * ARG2);
+		increaseprogramcounter(4);
+		break;
+	case MULTIPLY_REGISTER_REGISTER:
+		ACCUMULATOR = (readfromregister(ARG1) * readfromregister(ARG2));
+		increaseprogramcounter(4);
+		break;
 	case AND_REGISTER_REGISTER:
 		ACCUMULATOR = readfromregister(ARG1) & readfromregister(ARG2);
 		increaseprogramcounter(4);

@@ -150,7 +150,7 @@ uint16_t readfromregister(uint16_t index){
 	if (index < 0x10){
 		return registers[index];
 	} else {
-		printf("Log: Invalid Register Read");
+		printf("Log: Invalid Register Read: %X.\n", index);
 		return 0;
 	}
 }
@@ -186,7 +186,7 @@ int main(){
 		}
 	}
 	while (power == 1){
-		//printf("pc 0x%X\r", reword(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW, 0));
+		//printf("pc 0x%X\n", reword(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW, 0));
 		interpretinstruction(PROGRAM_COUNTER_HIGH, PROGRAM_COUNTER_LOW);
 		/*printf("opcode 0x%X\n", OPCODE);
 		printf("0x%X\n", ARG1);
@@ -194,6 +194,7 @@ int main(){
 		printf("0x%X\n", ARG3);
 		printf("accumulator 0x%X\n", ACCUMULATOR);
 		printf("head 0x%X\n", readmemory(HEAD_HIGH, HEAD_LOW, 0));
+		printf("head 0x%X\n", reword(HEAD_HIGH, HEAD_LOW, 0));
 		usleep(1000000);*/
 		SDL_Event event;
 		while (SDL_PollEvent(&event)){
